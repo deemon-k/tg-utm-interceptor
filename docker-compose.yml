@@ -1,0 +1,19 @@
+services:
+  redirector:
+    build: .
+    container_name: redirector
+    depends_on:
+      - mymongo
+    environment:
+      - MONGODB_URI=mongodb://mymongo:27017/mydb
+      - TZ=Europe/Kiev
+    ports:
+      - 3010:3010
+  mymongo:
+    image: mongo:8.2.2-noble
+    container_name: mymongo
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
